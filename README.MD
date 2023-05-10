@@ -14,20 +14,20 @@
 - [x] import 'dotenv' and setup package
 - [x] import connect() and invoke in the starter
 - [x] restart the server
-- [x] mongoose V6 info
 
 #### Basic Routes and Middleware
 
-- [] setup / GET Route
-- [] setup express.json() middleware
-- [] setup 404 and errorHandler middleware
-- [] import 'exress-async-errors' package
+- [x] setup / GET Route
+- [x] setup express.json() middleware
+- [x] setup 404 and errorHandler middleware
+- [x] import 'exress-async-errors' package
 
 #### 404 vs ErrorHandler Middleware
 
 #### Morgan Pacakge
 
 - [Morgan Package](https://www.npmjs.com/package/morgan)
+- [x] setup morgan() middleware
 
 #### User Model
 
