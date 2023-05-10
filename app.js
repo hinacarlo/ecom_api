@@ -16,7 +16,7 @@ const errorHandler = require('./middleware/error-handler')
 app.use(morgan('tiny'))
 app.use(express.json())
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     res.send('e-commerce api')
 })
 
