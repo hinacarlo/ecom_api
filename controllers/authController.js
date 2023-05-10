@@ -53,7 +53,11 @@ const loginController = async (req, res) => {
 
 }
 const logoutController = async (req, res) => {
-    res.send('logout user')
+    res.cookie('token', 'logout', {
+        httpOnly: true,
+        expires: new Date(Date.now() + 5 * 1000)
+    })
+    res.status(StatusCodes.OK).json({msg: 'User logged out'})
 }
 
 module.exports = {
