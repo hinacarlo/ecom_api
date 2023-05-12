@@ -13,7 +13,7 @@ const {
 userRouter.get('/', authenticate, authorizePermissions('admin', 'owner'), getAllUsers)
 
 userRouter.get('/showMe', authenticate, showCurrentUser)
-userRouter.patch('/updateUser', updateUser)
+userRouter.patch('/updateUser', authenticate, updateUser)
 userRouter.patch('/updateUserPassword', authenticate, updateUserPassword)
 
 userRouter.get('/:id', authenticate, getUser)
