@@ -12,7 +12,7 @@ const {
 
 userRouter.get('/', authenticate, authorizePermissions('admin', 'owner'), getAllUsers)
 
-userRouter.get('/showMe', showCurrentUser)
+userRouter.get('/showMe', authenticate, showCurrentUser)
 userRouter.post('/updateUser', updateUser)
 userRouter.post('/updateUserPassword', updateUserPassword)
 
