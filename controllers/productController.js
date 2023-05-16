@@ -1,34 +1,39 @@
-const Product = require('../models/Product')
+const Product = require('../models/Product');
+const { StatusCodes } = require('http-status-codes');
+const CustomError = require('../errors');
 
-const createProduct = (req, res) => {
-    res.send('create product')
-}
+const createProduct = async (req, res) => {
+	req.body.user = req.user.userId;
+	const product = await Product.create(req.body);
 
-const getAllProduct = (req, res) => {
-    res.send('get all product')
-}
+	res.status(StatusCodes.CREATED).json({ product });
+};
 
-const getProduct = (req, res) => {
-    res.send('get product')
-}
+const getAllProduct = async (req, res) => {
+	res.send('get all product');
+};
 
-const updateProduct = (req, res) => {
-    res.send('update product')
-}
+const getProduct = async (req, res) => {
+	res.send('get product');
+};
 
-const deleteProduct = (req, res) => {
-    res.send('delete product')
-}
+const updateProduct = async (req, res) => {
+	res.send('update product');
+};
 
-const uploadImage = (req, res) => {
-    res.send('upload image product')
-}
+const deleteProduct = async (req, res) => {
+	res.send('delete product');
+};
+
+const uploadImage = async (req, res) => {
+	res.send('upload image product');
+};
 
 module.exports = {
-    createProduct,
-    getAllProduct,
-    getProduct,
-    updateProduct,
-    deleteProduct,
-    uploadImage
-}
+	createProduct,
+	getAllProduct,
+	getProduct,
+	updateProduct,
+	deleteProduct,
+	uploadImage,
+};

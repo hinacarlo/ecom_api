@@ -1,24 +1,31 @@
-const express = require('express')
-const productRouter = express.Router()
-const { authenticate, authorizePermissions } = require('../middleware/authentication')
+const express = require('express');
+const productRouter = express.Router();
 const {
-    createProduct,
-    getAllProduct,
-    getProduct,
-    updateProduct,
-    deleteProduct,
-    uploadImage
-} = require('../controllers/productController')
+	authenticate,
+	authorizePermissions,
+} = require('../middleware/authentication');
+const {
+	createProduct,
+	getAllProduct,
+	getProduct,
+	updateProduct,
+	deleteProduct,
+	uploadImage,
+} = require('../controllers/productController');
 
-productRouter.get('/', authenticate, getAllProduct)
-productRouter.get('/:id', authenticate, getProduct)
+productRouter
+	.route('/')
+	.post([authenticate, authorizePermissions('admin')], createProduct)
+	.get(getAllProduct);
 
-productRouter.post('/createProduct', authenticate, authorizePermissions('admin', 'owner'), createProduct)
-productRouter.post('/uploadImage', authenticate, authorizePermissions('admin', 'owner'), uploadImage)
+productRouter
+	.route('/uploadImage')
+	.post([authenticate, authorizePermissions('admin')], uploadImage);
 
-productRouter.patch('/updateProduct', authenticate, authorizePermissions('admin', 'owner'), updateProduct)
-productRouter.delete('/deleteProduct', authenticate, authorizePermissions('admin', 'owner'), deleteProduct)
+productRouter
+	.route('/:id')
+	.get(getProduct)
+	.patch([authenticate, authorizePermissions('admin')], updateProduct)
+	.delete([authenticate, authorizePermissions('admin')], deleteProduct);
 
-module.exports = productRouter
-
-
+module.exports = productRouter;
