@@ -13,6 +13,8 @@ const {
 	uploadImage,
 } = require('../controllers/productController');
 
+const { getProductReviews } = require('../controllers/reviewController');
+
 productRouter
 	.route('/')
 	.post([authenticate, authorizePermissions('admin')], createProduct)
@@ -27,5 +29,8 @@ productRouter
 	.get(getProduct)
 	.patch([authenticate, authorizePermissions('admin')], updateProduct)
 	.delete([authenticate, authorizePermissions('admin')], deleteProduct);
+
+// alternative way to get product review without using virtuals on the model
+productRouter.route('/:id/reviews').get(getProductReviews);
 
 module.exports = productRouter;

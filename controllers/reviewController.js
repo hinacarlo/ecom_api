@@ -29,7 +29,11 @@ const createReview = async (req, res) => {
 };
 
 const getAllReviews = async (req, res) => {
-	const reviews = await Review.find({});
+	// populate gets the info from the referenced data
+	const reviews = await Review.find({}).populate({
+		path: 'product',
+		select: 'name company price',
+	});
 
 	res.status(StatusCodes.OK).json({ 'review count': reviews.length, reviews });
 };
@@ -81,10 +85,17 @@ const deleteReview = async (req, res) => {
 	res.status(StatusCodes.OK).json({ msg: 'Success! Review removed.' });
 };
 
+const getProductReviews = async (req, res) => {
+	const { id } = req.params;
+	const reviews = await Review.find({ product: id });
+	res.status(StatusCodes.OK).json({ count: reviews.length, reviews });
+};
+
 module.exports = {
 	createReview,
 	getAllReviews,
 	getReview,
 	updateReview,
 	deleteReview,
+	getProductReviews,
 };

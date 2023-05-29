@@ -65,7 +65,18 @@ const ProductSchema = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
+		// setup model to accept virtuals
+		toJSON: { virtuals: true },
+		toObject: { virtuals: true },
 	}
 );
+
+// vitruals are commonly used to show data from other referenced models without saving it to the DB
+ProductSchema.virtual('reviews', {
+	ref: 'Review',
+	localField: '_id',
+	foreignField: 'product',
+	justOne: false,
+});
 
 module.exports = mongoose.model('Product', ProductSchema);
